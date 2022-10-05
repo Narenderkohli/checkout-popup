@@ -1,0 +1,161 @@
+<style>
+.popup.grid {
+
+background-repeat: no-repeat;
+background-size: cover;
+ 
+}
+</style>
+
+
+<div class="popup-btn">
+<!-- Change the text below to what you need it to be -->
+
+</div>
+<div class="popup-overlay" data-lazyload="Anything you want to lazyload">
+<div class="popup grid ">
+  <div class="pop-content">
+   <div class="footer-block__newsletter">
+     <h2 class="footer-block__headin">{{settings.popup_heading}}</h2>
+     <p class="news-sub-heading">{{settings.popup_sub_heading}}</p>
+         {% if template =='cart' %}
+            <button class="popup-close cart-pop"><a href="/checkout">{{settings.button_first}}</a></button>
+            <button class="popup-close"><a href="https://airsoftpromo.com/">{{settings.second-btton}}</a></button>
+       {% else %}
+         <button class="popup-close new-c"><a href="">{{settings.button_first}}</a></button>
+          <button class="popup-close"><a href="">{{settings.second-btton}}</a></button>
+       {% endif %}
+          </div>
+
+<span class="popup-close"></span>
+</div>
+
+</div>
+</div>
+ <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+   <script>
+      $(document).ready(function(){
+       {% if template =='cart' %} 
+           $( "#checkout" ).click(function() {
+          setTimeout(function(){
+          var check_popuop = localStorage.getItem("popup-cart"); 
+         
+           if(check_popuop == 'submit'){  // check the value in the local storage. 
+                                           // if the value contains then not show a popup.
+                 
+            $("#checkout").hide();
+          $("#checkoutt").show();
+       window.location.href = '/checkout'; 
+
+             }
+           else {
+              
+            $(".popup-btn").trigger("click");
+             
+           $( ".cart-pop" ).click(function() {   
+             
+           localStorage.setItem("popup-cart", "submit");  // set the vaule in local storage.
+
+           }); 
+     }
+       
+          
+       },1000); 
+
+      }); 
+        {% else %}
+
+
+         // Home page popup js.
+        
+    setTimeout(function(){   
+      
+         
+        var site_popuop = localStorage.getItem("popup-btn"); 
+
+          if(site_popuop != 'submit'){  // check the value in the local storage. if the value contains then not show a popup.
+            
+            $(".popup-btn").trigger("click");
+            
+           $( ".new-c" ).click(function() {
+             event.preventDefault()
+            localStorage.setItem("popup-btn", "submit"); // set the value in the local storage popup.
+             
+              }); 
+          }
+          
+       },3000); 
+        
+        {% endif %}
+       
+        }); 
+   
+    </script>
+
+<script>
+  document.querySelector(".popup-btn").addEventListener('click', function (e) {
+e.stopPropagation();
+document.querySelector(".popup").style.display = 'flex';
+}, false);
+document.querySelector(".popup-btn").addEventListener('click', function () {
+document.querySelector(".popup-overlay").style.display = 'flex';
+}, false);
+document.querySelector(".popup-close").addEventListener('click', function () {
+document.querySelector(".popup").style.display = 'none';
+document.querySelector(".popup-overlay").style.display = 'none';
+}, false);
+document.querySelector("body").addEventListener('click', function () {
+document.querySelector(".popup").style.display = 'none';
+document.querySelector(".popup-overlay").style.display = 'none';
+}, false);
+document.querySelector(".popup").addEventListener('click', function (e) {
+e.stopPropagation();
+}, false);
+</script>
+<style>
+.popup {
+background-color: #fff;
+border-radius: 8px;
+padding: 50px 30px;
+box-shadow: rgba(0, 0, 0, 0.24) 0px 1px 3px;
+position: absolute;
+z-index: 25;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+max-width: 800px !important;
+height: 400px;
+display: none;
+width: 100%;
+}
+@media only screen and (max-width: 767px) {
+.popup {
+padding: 35px 15px;
+}
+}
+.popup-close:after {
+width: 30px;
+position: fixed;
+right: 10px;
+top: 10px;
+font-size: 20px;
+line-height: 30px;
+cursor: pointer;
+}
+.popup-btn {
+cursor: pointer;
+}
+.popup-overlay {
+position: fixed;
+height: 100%;
+width: 100% !important;
+top: 0;
+right: 0;
+bottom: 0;
+left: 0;
+background: rgba(0, 0, 0, 0.6);
+display: none;
+z-index: 100;
+}
+ </style>
